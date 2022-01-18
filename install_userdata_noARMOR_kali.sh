@@ -116,7 +116,7 @@ sudo service xrdp restart
 #--- Add a new user for Remote Desktop ---
 #Make sure you run "passwd" to set a new password to this account
 #The username and password will be located in $HOME/rdpcreds.txt
-USERNAME=kalicraig
+USERNAME=<username>
 sudo adduser $USERNAME --quiet --disabled-password --gecos ""
 sudo usermod -aG sudo $USERNAME
 sudo apt -y install pwgen
@@ -131,7 +131,7 @@ sudo echo "WHO I AM:"$WHOIAM
 
 #--- Armor Agent ---
 #banner "Installing the Armor Agent"
-#sudo curl -sSL https://agent.armor.com/latest/armor_agent.sh | sudo bash /dev/stdin -l BCDHC-FKWCQ-6J6JP-PBPF4-DWCPM -r us-west-armor -f
+#sudo curl -sSL https://agent.armor.com/latest/armor_agent.sh | sudo bash /dev/stdin -l XXXXX-XXXXX-XXXXX-XXXXX-XXXXX -r us-west-armor -f
 
 #--- Metadata and index.html files ---
 banner "Generating webserver metadata"
