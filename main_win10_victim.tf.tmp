@@ -1,0 +1,82 @@
+# Specify the provider and access details
+#provider "aws" {
+#  alias = "victim"
+#  region = var.region
+#  access_key = var.access_key
+#  secret_key = var.secret_key
+#}
+
+# Lookup the correct AMI based on the region specified
+data "aws_ami" "amazon_windows10_victim" {
+  most_recent = true
+  owners      = ["247892656624"]
+
+  filter {
+    name   = "image-id"
+    values = ["ami-0055edffcdb43d20f"]
+  }
+}
+
+resource "aws_instance" "winrm_win10_victim" {
+  # The connection block tells our provisioner how to
+  # communicate with the resource (instance) using WinRM
+    get_password_data = false
+    
+    connection {
+      host = self.public_ip
+      type     = "winrm"
+      user     = "Administrator"
+     private_key = file(var.private_key_path)
+    timeout = "30m"
+    }
+
+  # Change instance type for appropriate use case
+    instance_type = "t2.micro"
+ 
+  #ami    
+  #  ami = "ami-056f139b85f494248"
+  # ami = "ami-04c7f5a0e4cc067e0"
+  ami = data.aws_ami.amazon_windows10_victim.image_id
+  # Root storage
+  # Terraform doesn't allow encryption of root at this time
+  # encrypt volume after deployment.
+  root_block_device {
+    volume_type = "gp2"
+    volume_size = 50
+    delete_on_termination = true
+  }
+
+  # AZ to launch in
+  availability_zone = var.avail_zone
+
+  # VPC subnet and SGs
+  subnet_id = aws_subnet.main.id
+  vpc_security_group_ids = [aws_security_group.allowall.id]
+  associate_public_ip_address = "true"
+
+  # The number of instances to spin up
+  count = var.instance_count
+  # The name of our SSH keypair you've created and downloaded
+  # from the AWS console.
+  #
+  # https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#KeyPairs
+  #
+  key_name = var.key_name
+#  admin_password_base = aws_instance.winrm.*.password_data
+
+# Ec2 user data, WinRM and PowerShell Provision Functions
+   user_data = <<EOF
+	<powershell>
+	#Allow All TLS versions 
+		[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls, [Net.SecurityProtocolType]::Tls11, [Net.SecurityProtocolType]::Tls12, [Net.SecurityProtocolType]::Ssl3
+		[Net.ServicePointManager]::SecurityProtocol = "Tls, Tls11, Tls12, Ssl3"
+	
+	</powershell>
+	EOF
+
+	tags = {
+		#Name = var.instance_name
+		Name = "Victim-Windows10-R3Dlabs-${count.index + 1}"
+	}
+
+}
