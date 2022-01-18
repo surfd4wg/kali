@@ -10,12 +10,12 @@ variable "avail_zone" {
 
 variable "public_key_path" {
   description = "Path to the public SSH key you want to bake into the instance."
-  default     = "~/.ssh/(keyfile).pub"
+  default     = "~/.ssh/<keyfile>.pub"
 }
 
 variable "private_key_path" {
   description = "Path to the private SSH key, used to access the instance."
-  default     = "~/.ssh/(keyfile).pem"
+  default     = "~/.ssh/<keyfile>.pem"
 }
 
 variable "project_name" {
@@ -50,7 +50,7 @@ variable "mydept" {
 
 variable "myorg" {
   description = "Default Organization tag for AWS Resources"
-  default     = "https://armor.com, Armor Defense, Inc."
+  default     = "<Organization Name>"
 }
 
 variable "mystack" {
