@@ -1,6 +1,6 @@
 resource "aws_key_pair" "terraform_pub_key" {
   key_name   = "R3D-${random_id.server.hex}"
-  public_key = file("~/.ssh/r3dkeywest.pub")
+  public_key = file("~/.ssh/<keypairname>.pub")
   tags = merge(
         local.common_tags,
 
