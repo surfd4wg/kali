@@ -1,6 +1,6 @@
 variable "ARMKEY" {
   description = "Armor License Key"
-  default = "BCDHC-FKWCQ-6J6JP-PBPF4-DWCPM"
+  default = "XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 }
 
 variable "region" {
@@ -15,22 +15,22 @@ variable "avail_zone" {
 
 variable "key_name" {
   description = "Name of the SSH keypair to use in AWS."
-  default = "r3dkeywest"
+  default = "<keypairname>"
 }
 
 variable "public_key_path" {
   description = "Path to the public SSH key you want to bake into the instance."
-  default     = "~/.ssh/r3dkeywest.pub"
+  default     = "~/.ssh/<keypairname>.pub"
 }
 
 variable "private_key_path" {
   description = "Path to the private SSH key, used to access the instance."
-  default     = "~/.ssh/r3dkeywest.pem"
+  default     = "~/.ssh/<keypairname>.pem"
 }
 
 variable "project_name" {
   description = "<your org name> terraform ARMOR aws DEMO"
-  default     = "terraformR3Dkali"
+  default     = "terraformKali"
 }
 
 variable "ssh_user" {
@@ -40,17 +40,17 @@ variable "ssh_user" {
 
 variable "access_key" {
   description = "Access Key to AWS account"
-  default     = "AKIATTN4NYHYLQYGG2DS"
+  default     = "XXXXXXXXXXXXXXXXXXXX"
 }
 
 variable "secret_key" {
   description = "Secret Key to AWS account"
-  default     = "nQRQJRuYDwOKPEPN8cxxZ3p8ySZcwqcXD9xcnF9F"
+  default     = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 
 variable "myname" {
   description = "Default Name tag for AWS Resources"
-  default     = "R3Dlocust"
+  default     = "<defaultName>"
 }
 
 variable "mydept" {
@@ -60,17 +60,17 @@ variable "mydept" {
 
 variable "myorg" {
   description = "Default Organization tag for AWS Resources"
-  default     = "https://REDlocust.co"
+  default     = "<Organization URL>"
 }
 
 variable "mystack" {
   description = "Default Stack tag for AWS Resources"
-  default     = "R3Dlocust Demo"
+  default     = "<defaultStack>"
 }
 
 variable "myenv" {
   description = "Default Env tag for AWS Resources"
-  default     = "R3Dlocust-Labs"
+  default     = "<defaultEnv>"
 }
 
 variable "ami_id" {
@@ -85,10 +85,10 @@ variable "instance_count" {
 
 variable "INSTANCE_USERNAME" {
   description = "user"
-  default = "surfd4wg"
+  default = "<username>"
 }
 
 variable "INSTANCE_PASSWORD" {
   description = "pass"
-  default = "PocketRocketJocket1!="
+  default = "<password>"
 }
